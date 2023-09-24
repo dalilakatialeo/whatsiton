@@ -48,7 +48,7 @@ export default {
                     output_language: 'en'
                 },
                 headers: {
-                    'X-RapidAPI-Key': '00bcc396camshd1a3bd2e2c4bad5p129a25jsnbaece510eedf',
+                    'X-RapidAPI-Key': process.env.RAPID_API_KEY,
                     'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
                 }
             };
