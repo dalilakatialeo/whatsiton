@@ -52,9 +52,6 @@ export default {
   },
   methods: {
     async fetchData() {
-      if (this.inputValue === "") {
-        alert("You need to enter a title!");
-      }
       this.loading = true;
       this.loadingProgress = 0;
       const apiKey = "006bac0037msh933b904ad778e5ep1df481jsn7af220bf0888";
@@ -106,14 +103,18 @@ export default {
     },
 
     async submitForm() {
-      this.loading = true;
-      console.log(this.inputValue);
-      await this.fetchData(this.inputValue);
-      console.log("RESULTS FROM SEARCH", this.searchResults);
-      console.log("first item", this.result);
-      await this.getMoviePoster(this.inputValue);
-      this.$emit("searchResultsUpdated", this.searchResults);
-      this.$emit("moviePosterRetrieved", this.moviePoster);
+      if (this.inputValue === "") {
+        alert("You need to enter a title!");
+      } else {
+        this.loading = true;
+        console.log(this.inputValue);
+        await this.fetchData(this.inputValue);
+        console.log("RESULTS FROM SEARCH", this.searchResults);
+        console.log("first item", this.result);
+        await this.getMoviePoster(this.inputValue);
+        this.$emit("searchResultsUpdated", this.searchResults);
+        this.$emit("moviePosterRetrieved", this.moviePoster);
+      }
     },
     delay(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
