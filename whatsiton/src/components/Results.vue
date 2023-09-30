@@ -1,109 +1,94 @@
 
 <template>
-    <q-col>
-        <q-row class="flex-center" v-if="searchResults.length === 0">
-            <q-col>
-                <q-input class="custom-input-text-color" v-model="inputValue" />
-            </q-col>
-            <q-col class="button-col">
-                <q-btn label="Whatsiton?" @click="submitForm" class="button-hover-active"
-                    style="font-family: 'Dela Gothic One', cursive; text-transform: none; margin-top: 40px; justify-items: center; color: #1c1937; background-color: #ffc107 ; border: 1px solid #ffffff; " />
-            </q-col>
-        </q-row>
-        <q-row v-else>
-            <q-card>
-                <q-card-title>{{ result ? result.title : '' }}</q-card-title> <br />
-                <q-card-subtitle></q-card-subtitle>
-                <q-card-text>Is on {{ result ? result.streamingInfo.au[0].service : '' }}</q-card-text>
-            </q-card>
-            <q-btn label="Start over" @click="clear" class="button-hover-active"
-                style="font-family: 'Dela Gothic One', cursive; text-transform: none; margin-top: 40px; justify-items: center; color: black; background-color: #ffc107 ; border: 1px solid #ffffff; " />
-        </q-row>
-    </q-col>
+  <q-col>
+    <q-row class="flex-center">
+      <q-card class="results-card" v-if="results.length !== 0">
+        <q-card-title>{{ result ? result.title : "" }}</q-card-title> <br />
+        <q-card-subtitle></q-card-subtitle>
+        <q-card-text>
+          <p>
+            is on
+            {{ result ? result.streamingInfo.au[0].service.toUpperCase() : "" }}
+          </p>
+        </q-card-text>
+      </q-card>
+      <div v-if="poster" style="text-align: center">
+        <img class="movie-poster" :src="poster" alt="Movie Poster" />
+      </div>
+      <div class="button-center">
+        <q-btn
+          label="Start over"
+          @click="clearResults"
+          class="button-hover-active"
+          style="
+            font-family: 'Dela Gothic One', cursive;
+            font-size: 1.1rem;
+            text-transform: none;
+            margin-top: 40px;
+            justify-items: center;
+            color: #1c1937;
+            background-color: #ffc107;
+            border: 1px solid #ffffff;
+          "
+        />
+      </div>
+    </q-row>
+  </q-col>
 </template>
 
 
 <script>
-
-import axios from "axios"
-
 export default {
-    name: 'Search',
-    data() {
-        return {
-            inputValue: '',
-            searchResults: [],
-            result: null,
-        }
+  name: "Results",
+  props: {
+    results: Array,
+    poster: String,
+  },
+  created() {
+    console.log("Received results prop:", this.results);
+    console.log("RECEIVEDPOSTER", this.poster);
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    result() {
+      return this.results.length > 0 ? this.results[0] : null;
     },
-    created() {
-        clear(this.searchResults)
+  },
+  methods: {
+    clearResults() {
+      this.$emit("clearResultsClicked");
     },
-    methods: {
-        async fetchData() {
-            const options = {
-                method: 'GET',
-                url: 'https://streaming-availability.p.rapidapi.com/search/title',
-                params: {
-                    title: this.inputValue,
-                    country: 'au',
-                    show_type: 'all',
-                    output_language: 'en'
-                },
-                headers: {
-                    'X-RapidAPI-Key': '00bcc396camshd1a3bd2e2c4bad5p129a25jsnbaece510eedf',
-                    'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
-                }
-            };
-            try {
-                const response = await axios.request(options);
-                this.searchResults = response.data;
-                this.result = this.searchResults.result[0]
-                console.log(response.data, 'RESPONSE FROM API')
-                this.error = null;
-            } catch (error) {
-                this.error = error;
-                console.error(error);
-            }
-        },
-        async submitForm() {
-            console.log(this.inputValue)
-            await this.fetchData(this.inputValue)
-            console.log('RESULTS', this.searchResults)
-            console.log('first item', this.result)
-        },
-        clear() {
-            this.searchResults = []
-            this.inputValue = ''
-            console.log(this.searchResults.length === 0)
-        }
-    }
-}
+  },
+};
 </script>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat:wght@300;700&family=Staatliches&display=swap');
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat:wght@300;700&family=Staatliches&display=swap");
 
-input {
-    text-align: center;
+.results-card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  padding: 5%;
+  background-color: #0d0b24;
+  color: white;
+  font-size: 1.2rem;
 }
 
-.custom-input-text-color input {
-    color: white;
-    border: 1px solid white;
-    width: 40vl
+.movie-poster {
+  width: auto;
+  height: 50vh;
+  margin-top: 20px;
+  margin: 0 auto;
+  border: 1px solid white;
 }
-
-.button-col {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.button-hover-active:hover,
-.button-hover-active:active {
-    background-color: #1976d2 !important;
-    color: white !important;
+.button-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
 }
 </style>
