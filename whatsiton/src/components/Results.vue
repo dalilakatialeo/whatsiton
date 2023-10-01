@@ -22,7 +22,7 @@
       </div>
       <div class="button-center">
         <q-btn
-          label="Start over"
+          label="Search again"
           @click="clearResults"
           class="button-hover-active"
           style="
