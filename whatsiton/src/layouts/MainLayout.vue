@@ -17,6 +17,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
     <q-footer elevated style="background-color: #0d0b24">
       <q-toolbar>
         <q-toolbar-title
@@ -24,8 +25,11 @@
           style="color: white; text-transform: none"
         >
           ©
-          <a href="https://github.com/dalilakatialeo" target="_blank"
-            ><span class="link-text">DKL</span></a
+          <a
+            href="https://github.com/dalilakatialeo"
+            target="_blank"
+            style="color: #ffc107; text-decoration: none"
+            >DKL</a
           ></q-toolbar-title
         >
       </q-toolbar>
@@ -41,12 +45,5 @@ export default {
 <style scoped>
 .footer {
   font-size: 0.85rem;
-}
-a .link-text a:visited .link-text {
-  color: white;
-}
-a:active .link-text,
-a:hover .link-text {
-  color: #ffc107;
 }
 </style>

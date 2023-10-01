@@ -10,16 +10,20 @@
           is on
           {{ result ? streamingInfo.toUpperCase() : "" }}
         </q-card-text>
-        <q-card-text v-else> is not on any streaming platforms </q-card-text>
+        <q-card-text v-else> is not streaming anywhere 😢 </q-card-text>
       </q-card>
+
       <div style="text-align: center">
-        <img
-          v-if="poster"
-          class="movie-poster"
-          :src="poster"
-          alt="Movie Poster"
-        />
+        <div v-if="poster">
+          <img
+            :class="{ 'movie-poster': !loaded, 'movie-poster-border': loaded }"
+            :src="poster"
+            alt="Movie Poster"
+            @load="handleImageLoad"
+          />
+        </div>
       </div>
+
       <div class="button-center">
         <q-btn
           label="Search again"
@@ -55,7 +59,9 @@ export default {
     console.log("RECEIVEDPOSTER", this.poster);
   },
   data() {
-    return {};
+    return {
+      loaded: false,
+    };
   },
   computed: {
     result() {
@@ -70,6 +76,9 @@ export default {
   methods: {
     clearResults() {
       this.$emit("clearResultsClicked");
+    },
+    handleImageLoad() {
+      this.loaded = true;
     },
   },
 };
@@ -100,6 +109,12 @@ export default {
 }
 
 .movie-poster {
+  width: auto;
+  height: 35vh;
+  margin-top: 25px;
+  margin: 0 auto;
+}
+.movie-poster-border {
   width: auto;
   height: 35vh;
   margin-top: 25px;
