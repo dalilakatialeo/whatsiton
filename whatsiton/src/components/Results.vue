@@ -1,23 +1,28 @@
 
 <template>
   <q-col>
-    <q-row class="flex-center">
-      <q-card class="results-card" v-if="results.length !== 0">
-        <q-card-title>{{ result ? result.title : "" }}</q-card-title> <br />
-        <q-card-subtitle></q-card-subtitle>
-        <q-card-text>
-          <p>
-            is on
-            {{ result ? result.streamingInfo.au[0].service.toUpperCase() : "" }}
-          </p>
+    <q-row class="results-row">
+      <q-card class="results-card" v-if="results.length !== 0 && poster">
+        <q-card-title class="results-title">{{
+          result ? result.title : ""
+        }}</q-card-title>
+        <q-card-text v-if="streamingInfo">
+          is on
+          {{ result ? streamingInfo.toUpperCase() : "" }}
         </q-card-text>
+        <q-card-text v-else> is not on any streaming platforms </q-card-text>
       </q-card>
-      <div v-if="poster" style="text-align: center">
-        <img class="movie-poster" :src="poster" alt="Movie Poster" />
+      <div style="text-align: center">
+        <img
+          v-if="poster"
+          class="movie-poster"
+          :src="poster"
+          alt="Movie Poster"
+        />
       </div>
       <div class="button-center">
         <q-btn
-          label="Start over"
+          label="Search again"
           @click="clearResults"
           class="button-hover-active"
           style="
@@ -44,6 +49,7 @@ export default {
     results: Array,
     poster: String,
   },
+
   created() {
     console.log("Received results prop:", this.results);
     console.log("RECEIVEDPOSTER", this.poster);
@@ -54,6 +60,11 @@ export default {
   computed: {
     result() {
       return this.results.length > 0 ? this.results[0] : null;
+    },
+    streamingInfo() {
+      return this.result.streamingInfo.au
+        ? this.result.streamingInfo.au[0].service
+        : null;
     },
   },
   methods: {
@@ -67,12 +78,22 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat:wght@300;700&family=Staatliches&display=swap");
 
+.results-row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  height: 90vh;
+}
 .results-card {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
+  text-align: center;
   padding: 5%;
+  margin-bottom: 10%;
   background-color: #0d0b24;
   color: white;
   font-size: 1.2rem;
@@ -80,15 +101,16 @@ export default {
 
 .movie-poster {
   width: auto;
-  height: 50vh;
-  margin-top: 20px;
+  height: 40vh;
+  margin-top: 25px;
   margin: 0 auto;
   border: 1px solid white;
 }
+
 .button-center {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 10%;
 }
 </style>

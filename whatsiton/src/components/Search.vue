@@ -85,7 +85,7 @@ export default {
     },
     async getMoviePoster() {
       const apiKey = "979d5cdb9e06568892694ef696e0189c";
-      const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${this.inputValue}`;
+      const apiUrl = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${this.inputValue}`;
       try {
         const response = await axios.get(apiUrl);
         const json = response.data;
@@ -133,7 +133,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat:wght@300;700&family=Staatliches&display=swap");
 
 .custom-input-text-color input {
-  width: 40vw;
+  width: 60vw;
   text-align: center;
   font-size: 1.2rem;
   color: white;
