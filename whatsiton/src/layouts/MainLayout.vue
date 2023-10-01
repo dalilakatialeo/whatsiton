@@ -42,7 +42,7 @@ export default {
 .footer {
   font-size: 0.85rem;
 }
-a:visited .link-text {
+a .link-text a:visited .link-text {
   color: white;
 }
 a:active .link-text,
