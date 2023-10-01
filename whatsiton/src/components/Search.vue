@@ -133,7 +133,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat:wght@300;700&family=Staatliches&display=swap");
 
 .custom-input-text-color input {
-  width: 40vw;
+  width: 60vw;
   text-align: center;
   font-size: 1.2rem;
   color: white;
