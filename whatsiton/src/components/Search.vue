@@ -85,7 +85,7 @@ export default {
     },
     async getMoviePoster() {
       const apiKey = "979d5cdb9e06568892694ef696e0189c";
-      const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${this.inputValue}`;
+      const apiUrl = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${this.inputValue}`;
       try {
         const response = await axios.get(apiUrl);
         const json = response.data;
