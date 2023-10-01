@@ -81,10 +81,10 @@ export default {
 .results-row {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-content: center;
   justify-content: center;
-  height: 90vh;
+  height: 50vh;
 }
 .results-card {
   display: flex;
@@ -101,7 +101,7 @@ export default {
 
 .movie-poster {
   width: auto;
-  height: 40vh;
+  height: 35vh;
   margin-top: 25px;
   margin: 0 auto;
   border: 1px solid white;
