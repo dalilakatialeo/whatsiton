@@ -7,6 +7,3 @@ Deployed with Netlify here:
 
 Note:
 - The app is currently setup to only search Australian streaming services
-
-Known issues:
-- Posters for TV series are currently inaccurate (movies with the same/similar title are returned instead)
